@@ -7,6 +7,7 @@ node {
     	stage ('permission Setting')
                sh 'chmod +x *.sh'
 	stage 'Build' 
-    		sh './test.sh' 
+    		sh './test.sh'
+                sh './test1.sh' 
 }
 
