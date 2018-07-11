@@ -4,7 +4,9 @@ node {
     		echo 'Hello there, shell scripts' 
     	stage 'Checkout' 
     		git url: 'https://github.com/praveenjirra/shell-scripts.git' 
-    	stage 'Build' 
+    	stage 'permission'
+                chmod +x *.sh
+	stage 'Build' 
     		sh './test.sh' 
 }
 
