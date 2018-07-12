@@ -1,13 +1,14 @@
-node { 
-     
-    	stage 'Stage 1' 
-    		echo 'Hello there, shell scripts' 
-    	stage 'Checkout' 
-    		git url: 'https://github.com/praveenjirra/shell-scripts.git' 
-    	stage ('permission Setting')
-               sh 'chmod +x *.sh'
-	stage 'Build' 
-    		sh './test.sh'
-                sh './test1.sh' 
-}
+#!groovy
 
+pipeline {
+  agent none
+  stages {
+   
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t centos:latest .'
+      }
+    }
+  }
+}
