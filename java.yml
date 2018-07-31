@@ -1,5 +1,5 @@
 ---
-- hosts: 18.220.147.212
+- hosts: localhost
   
   tasks:
    - name: Install add-apt-repostory
