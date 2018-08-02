@@ -1,0 +1,12 @@
+{  
+    "vAppID": "1234",
+    "vbuild_uuid": "core_localBuild",
+    "v3rdPartyComponents": "102",
+    "vScanVersion": "v2.23.757-2",
+    "@timestamp": "2018-07-23 18:52:43 UTC",
+    "vBuildID": "123456",
+	"vAppName": "Enterprise Servicing Platform - Core",
+	"vAppCode": "ust",
+	"scan_status": "SUCCESS",
+	"eMail": "praveen.jirra@gmail.com"
+	}
