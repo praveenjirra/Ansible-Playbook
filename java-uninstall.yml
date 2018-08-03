@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: uninstall add-apt-repostory
+      become: yes
+      apt: name=software-properties-common state=absent
+    - name: add oracle java repository
+      become: yes
+      apt_repository: repo='ppa:webupd8team/java'
+    - name: accept java 8 license
+      become: yes
+      debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+    - name: uninstall oracle java 8
+      become: yes
+      apt: name={{item}} state=absent update_cache=yes
+      with_items:
+         - oracle-java8-installer
+         - ca-certificates
+         - oracle-java8-set-default
