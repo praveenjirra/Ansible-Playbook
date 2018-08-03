@@ -1,0 +1,13 @@
+ansible-galaxy init role_name
+
+ansible-galaxy info username.role_name
+
+ansible-galaxy list
+
+ansible-galaxy remove username.role_name
+
+ansible-galaxy login
+
+ansible-galaxy import github_user github_repo
+
+ansible-galaxy delete github_user github_repo
