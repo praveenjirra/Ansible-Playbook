@@ -13,7 +13,7 @@ pipeline {
      stage('Docker Run') {
       agent any
       steps {
-        sh 'docker run -dit -p 8081:80 centos'
+        sh 'docker run -dit -p 8082:80 centos'
       }
      
     }
