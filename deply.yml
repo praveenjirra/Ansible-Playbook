@@ -1,0 +1,6 @@
+- hosts: localhost
+  sudo: yes
+  tasks:
+  - name: copy TechdatCommunicationss.war
+    shell: cp /home/ubuntu/TechdatCommunicationss.war /home/ubuntu/apache-tomcat-8.0.27/webapps/
+

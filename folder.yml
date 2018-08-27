@@ -1,0 +1,10 @@
+---
+- hosts : localhost
+  tasks:
+  - name: Create Folder
+    file:
+     path: /home/ubuntu/ansible/demoansible124
+     state: directory
+     mode: 0755
+     owner: ubuntu
+     group: ubuntu
