@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages {
+          
+        stage('Checkout ') {
+            steps {
+                checkout([$class: 'GitSCM',
+                branches: [[name: '*/master']], 
+                doGenerateSubmoduleConfigurations: false,
+                submoduleCfg: [], 
+                userRemoteConfigs: [[url: 'https://github.com/praveenjirra/warrepo.git']]])
+
+            }
+            
+        }
+        stage('Checking playbook'){
+         
+         steps {
+         sh "ansible-playbook java.yml --check "   
+         }
+         }
+         
+         stage('Checking syntax'){
+         
+         steps {
+          sh "ansible-playbook  java.yml  --syntax-check "   
+         }
+         }
+       stage('Executing '){
+         
+         steps {
+          sh "ansible-playbook  java.yml  "   
+         }
+         }
+      
+        }
