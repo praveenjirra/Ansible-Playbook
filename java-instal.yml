@@ -1,8 +1,9 @@
 ---
-- hosts: node
+- hosts: localhost
 
   tasks:
 
     - name: Install add-apt-repostory
       become: yes
-      apt: name=openjdk-11* state=absent
+      apt: name=openjdk-8-jdk state=latest
+

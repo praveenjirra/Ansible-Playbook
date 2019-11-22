@@ -1,0 +1,11 @@
+    Ansible-Vault:--
+----------------------
+    ansible-vault create demo.yml
+    ansible-vault encrypt demo.yml 
+    cat demo.yml 
+    ansible-vault view demo.yml 
+    ansible-vault edit demo.yml 
+    ansible-vault decrypt demo.yml 
+    cat demo.yml 
+    ansible-vault rekey demo.yml 
+

@@ -1,0 +1,12 @@
+---
+
+   - hosts: node
+     tasks:
+     - name: Create Folder
+       file:
+        path: /home/ubuntu/praveen-devops
+        state: directory
+        mode: 0755
+        owner: ubuntu
+        group: ubuntu
+

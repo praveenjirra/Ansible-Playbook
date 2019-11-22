@@ -1,0 +1,30 @@
+---
+-
+  environment:
+    AWS_ACCESS_KEY_ID: ***************
+    AWS_SECRET_ACCESS_KEY: ***************
+  hosts: localhost
+  name: Launching an EC2 Instance
+  gather_facts: false
+  vars:
+    keypair: PraveenReddy
+    instance_type: t2.micro
+    security_group: default
+    image: ami-06d51e91cea0dac8d
+    region: us-west-2
+  tasks:
+     - name: Launching an EC2 Instance
+       ec2:
+#           aws_access_key: "{{ AWS_ACCESS_KEY}}"
+#           aws_secret_key: "{{ AWS_SECRET_KEY }}"
+           instance_type: "{{ instance_type }}"
+           image: "{{ image }}"
+           region: "{{ region }}"
+           key_name: "{{ keypair }}"
+           count: 1
+#           instance_profile_name: Somya-vm
+           group: "{{ security_group }}"
+           wait: true
+           vpc_subnet_id: subnet-b49fa7cd
+           assign_public_ip: yes
+       register: ec2

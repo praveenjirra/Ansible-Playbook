@@ -1,0 +1,55 @@
+---
+- hosts: localhost
+  sudo: true
+  vars:
+     MYSQL_root_pass: 1234567
+  tasks:
+        - name: install required software
+          apt: name={{item}} state=present
+          sudo: yes
+          with_items:
+            - apache2
+            - build-essential
+            - python-dev
+            - libmysqlclient-dev
+            - python-pip
+            - mysql-server
+            - mysql-client
+            - php7.0
+            - php7.0-mysql
+            - libapache2-mod-php7.0
+            - php7.0-cli
+            - php7.0-cgi
+            - php7.0-gd
+            - php7.0-mcrypt
+        - name: install the mysql-python through pip
+          sudo: yes
+          pip:
+             name: "{{item}}"
+             state: forcereinstall
+          with_items:
+             - pip
+             - MYSQL-python
+
+        - name: set mysql root password before installing
+          debconf: name='mysql-server' question='mysql-server/root_password' value='{{MYSQL_root_pass | quote}}' vtype='password'
+        - name: confirm mysql root password before installing
+          debconf: name='mysql-server' question='mysql-server/root_password_again' value='{{MYSQL_root_pass | quote}}' vtype='password'
+        - name: install mysql
+          apt: package={{item}} state=installed force=yes update_cache=yes cache_valid_time=3600
+          when: ansible_os_family == 'debian'
+          with_items:
+             - mysql-server
+             - mysql-client
+             - python-mysqldb
+        - name: deletes anonymous mysql server user for localhost
+          mysql_user: user="" state="absent" login_password="{{MYSQL_root_pass}}" login_user=root
+        - name: secures the mysql root user
+          mysql_user: user="root" password="{{MYSQL_root_pass}}" host="{{item}}" login_password="{{MYSQL_root_pass}}" login_user=root
+          with_items:
+               - 127.0.0.1
+               - localhost
+               - ::1
+               - "{{ansible_fqdn}}"
+        - name: removes the mysql test database
+          mysql_db: db=test state=absent login_password="{{MYSQL_root_pass}}" login_user=root 

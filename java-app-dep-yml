@@ -1,0 +1,28 @@
+---
+- hosts: ec2-creation
+  remote_user: root
+  sudo: yes
+  tasks:
+   - name: Install add-apt-repostory
+     apt: name=openjdk-8-jdk state=latest
+
+   - name: Download Tomcat
+     get_url: url=https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.27/bin/apache-tomcat-8.0.27.tar.gz dest=/home/ubuntu
+
+   - name: Extract archive
+     unarchive: src=/home/ubuntu/apache-tomcat-8.0.27.tar.gz dest=/home/ubuntu  remote_src=yes
+  
+   - name: Download Application
+     get_url: url=https://warfiles-java.s3-us-west-2.amazonaws.com/TechdatCommunicationss.war dest=/home/ubuntu
+
+   - name: start apache-tomcat-8.0.27
+     command:   "nohup /home/ubuntu/apache-tomcat-8.0.27/bin/startup.sh"
+
+   - name: copy Techdata.war
+     shell: cp /home/ubuntu/TechdatCommunicationss.war /home/ubuntu/apache-tomcat-8.0.27/webapps/
+
+   - name: stop apache-tomcat-8.0.27
+     command:  "nohup /home/ubuntu/apache-tomcat-8.0.27/bin/shutdown.sh"
+   
+   - name: start apache-tomcat-8.0.27
+     command:  "nohup /home/ubuntu/apache-tomcat-8.0.27/bin/startup.sh"

@@ -1,0 +1,15 @@
+---
+- hosts: node
+  sudo: true
+  tasks:
+  
+      - name: "add repository for php 7.0"
+        apt_repository:
+           repo="ppa:ondrej/php"
+           update_cache=yes
+      - name: install php
+        apt: name={{item}} state=latest update_cache=yes
+        with_items:
+             - php7.0-common
+             - php7.0-cli
+             - php7.0-dev

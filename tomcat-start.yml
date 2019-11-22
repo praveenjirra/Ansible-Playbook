@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+  - name: start apache-tomcat-8.0.27
+    shell: /home/ubuntu/apache-tomcat-8.0.27/bin/startup.sh

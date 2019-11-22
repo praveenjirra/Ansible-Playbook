@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+
+      - name: create a new database with name 'devops'
+        mysql_db:
+             name: devops
+             state: present
+             login_user: 'root'
+             login_password: '123456'
