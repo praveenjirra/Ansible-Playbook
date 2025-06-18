@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+  - name: installing multiple packages
+    apt: name={{item}} state=present
+    with_items:
+      - docker.io
+      - nginx
+      - tomcat9
+      - mysql-server
