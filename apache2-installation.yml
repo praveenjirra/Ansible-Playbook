@@ -3,9 +3,8 @@
   #sudo: yes
   tasks:
   - name: install apache2
-    apt: name=apache2 update_cache=yes state=latest
-    notify:
-    - restart apache2
+    apt: name=apache2 state=latest
+
       #  - name: ensure apache is running (and enable it at boot)
       # service: name=apache2 state=started enabled=yes
   handlers:
