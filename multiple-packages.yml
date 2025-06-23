@@ -2,6 +2,7 @@
 - hosts: localhost
   tasks:
   - name: installing multiple packages
+    become: yes
     apt: name={{item}} state=present
     with_items:
       - docker.io
