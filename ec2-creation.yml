@@ -1,30 +1,34 @@
 ---
--
-  environment:
-    AWS_ACCESS_KEY_ID: ***************
-    AWS_SECRET_ACCESS_KEY: ***************
+- name: Launching an EC2 Instance
   hosts: localhost
-  name: Launching an EC2 Instance
   gather_facts: false
+
   vars:
-    keypair: PraveenReddy
+    keypair: ec2-server-demo
     instance_type: t2.micro
     security_group: default
-    image: ami-06d51e91cea0dac8d
+    image: ami-0d13e2317a7e75c95
     region: us-west-2
+    subnet_id: subnet-0d838522e17b8e59f
+
   tasks:
-     - name: Launching an EC2 Instance
-       ec2:
-#           aws_access_key: "{{ AWS_ACCESS_KEY}}"
-#           aws_secret_key: "{{ AWS_SECRET_KEY }}"
-           instance_type: "{{ instance_type }}"
-           image: "{{ image }}"
-           region: "{{ region }}"
-           key_name: "{{ keypair }}"
-           count: 1
-#           instance_profile_name: Somya-vm
-           group: "{{ security_group }}"
-           wait: true
-           vpc_subnet_id: subnet-b49fa7cd
-           assign_public_ip: yes
-       register: ec2
+    - name: Launch EC2 Instance
+      amazon.aws.ec2_instance:
+        name: ansible-demo-server
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image }}"
+        region: "{{ region }}"
+        key_name: "{{ keypair }}"
+        security_groups:
+          - "{{ security_group }}"
+        subnet_id: "{{ subnet_id }}"
+        network:
+          assign_public_ip: true
+        wait: true
+        count: 1
+
+      register: ec2
+
+    - name: Display EC2 details
+      debug:
+        var: ec2
